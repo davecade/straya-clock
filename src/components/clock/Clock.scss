@@ -1,0 +1,43 @@
+.state {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2rem;
+    width: 5rem;
+    background-color: darkblue;
+    color: greenyellow;
+}
+
+.WA {
+    left: 22%;
+    top: 41%;
+}
+
+.NT {
+    top: 30%;
+}
+
+.SA {
+    bottom: 40%;
+}
+
+.QLD {
+    right: 25%;
+    top: 40%;
+}
+
+.NSW {
+    right: 20%;
+    bottom: 30%
+}
+
+.VIC {
+    right: 27%;
+    bottom: 18%
+}
+
+.TAS {
+    bottom: 3%;
+    right: 20%
+}
