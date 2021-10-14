@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 //-- API's
-//-- https://www.beliefmedia.com.au/australian-postal-codes
+//-- http://api.jsacreative.com.au/v1/suburbs?postcode=2155
 //-- http://worldtimeapi.org/
 
 const Clock = () => {
@@ -13,6 +13,9 @@ const Clock = () => {
       return (async () => {
         try {
             const fetchData = await fetch('http://worldtimeapi.org/api/timezone/Australia/Sydney')
+            const fetchPostcode = await fetch('http://api.jsacreative.com.au/v1/suburbs?postcode=2155')
+            const postcode = await fetchPostcode.json()
+            console.log(postcode)
             const data = await fetchData.json()
             const time = new Date(data.datetime)
             setDisplay(`${time.getHours()}:${time.getMinutes()}`)
