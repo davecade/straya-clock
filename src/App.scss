@@ -25,19 +25,19 @@
       background-color: #1a1d22;
       //background-color: #272a34;
       height: 100%;
-      width: 19.5%;
+      width: 20%;
       //border-radius: 2rem;
       //border: 2px solid #d9eb52;
     }
 
     .map__container {
-      background-color: #1a1d22;
-      //background-color: #272a34;
+      //@at-root: #1a1d22;
+      background-color: #272a34;
       position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 79.5%;
+      width: 80%;
       height: 100%;
       max-width: 131rem;
       //border-radius: 2rem;

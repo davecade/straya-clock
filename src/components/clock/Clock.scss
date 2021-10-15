@@ -1,12 +1,15 @@
 .state {
     position: absolute;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 2rem;
-    width: 5rem;
-    background-color: darkblue;
-    color: greenyellow;
+    height: fit-content;
+    width: fit-content;
+    padding: .5rem;
+    background-color: black;
+    color: #6dce66;
+    border-radius: .3rem;
 }
 
 .WA {
@@ -33,11 +36,11 @@
 }
 
 .VIC {
-    right: 27%;
+    right: 29%;
     bottom: 18%
 }
 
 .TAS {
-    bottom: 3%;
-    right: 20%
+    bottom: 2%;
+    right: 28%
 }

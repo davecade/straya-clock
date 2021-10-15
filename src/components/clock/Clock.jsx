@@ -5,37 +5,52 @@ import './Clock.scss'
 //-- http://api.jsacreative.com.au/v1/suburbs?postcode=2155
 //-- http://worldtimeapi.org/
 
+const stateKey = {
+    'Sydney': 'NSW',
+    'Melbourne': 'VIC',
+    'Adelaide': 'SA',
+    'Darwin': 'NT',
+    'Brisbane': 'QLD',
+    'Perth': 'WA',
+    'Hobart': 'TAS'
+}
+
 const Clock = ({ className, city }) => {
 
     const [ display, setDisplay ] = useState(null)
+    const [ stateName, setStateName ] = useState('')
 
-    // useEffect(() => {
+
+
+    useEffect(() => {
   
-    //   return (async () => {
-    //       const timer = setInterval(async () => {
-    //         try {
-    //             const fetchData = await fetch(`http://worldtimeapi.org/api/timezone/Australia/${city}`)
-    //             // const fetchPostcode = await fetch('http://api.jsacreative.com.au/v1/suburbs?postcode=2155')
-    //             // const postcode = await fetchPostcode.json()
-    //             //console.log(postcode)
-    //             const data = await fetchData.json()
-    //             //console.log(data)
-    //             const time = data.datetime.slice(11, 16)
-    //             //console.log("time", time)
-    //             setDisplay(time)
-    //         } catch(error) {
-    //             console.log("ERROR", error)
-    //         }
+      return (async () => {
+          setInterval(async () => {
+            try {
+                const fetchData = await fetch(`http://worldtimeapi.org/api/timezone/Australia/${city}`)
+                // const fetchPostcode = await fetch('http://api.jsacreative.com.au/v1/suburbs?postcode=2155')
+                // const postcode = await fetchPostcode.json()
+                //console.log(postcode)
+                const data = await fetchData.json()
+                console.log(data)
+                const time = data.datetime.slice(11, 19)
+                //console.log("time", time)
+                setDisplay(time)
+                setStateName(data.timezone)
+            } catch(error) {
+                console.log("ERROR", error)
+            }
               
-    //       }, 500);
+          }, 500);
 
       
-    //   })()
-    // }, [])
+      })()
+    }, [city])
 
     return (
         <div className={className}>
-            <h4>{display}</h4>
+            <h4>{stateKey[stateName.slice(10)]}</h4>
+            <p>{display}</p>
         </div>
     )
 }
