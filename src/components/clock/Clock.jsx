@@ -21,8 +21,14 @@ const nonMilitary = time => {
     if(hour > 12) {
         return `${hour-12}${time.slice(2)} PM`
     } else {
-
-        return `${time} AM`
+        if(hour > 0 && hour < 10) {
+            return `${hour.toString()}${time.slice(2)} AM`
+        } else if(hour === 0) {
+            return `12${time.slice(2)} AM`
+        } else {
+            return `${time} AM`
+        }
+        
     }
 
 }
@@ -37,7 +43,7 @@ const Clock = ({ className, city }) => {
     useEffect(() => {
   
       return (async () => {
-          setInterval(async () => {
+          //setInterval(async () => {
             try {
                 const fetchData = await fetch(`http://worldtimeapi.org/api/timezone/Australia/${city}`)
                 // const fetchPostcode = await fetch('http://api.jsacreative.com.au/v1/suburbs?postcode=2155')
@@ -45,7 +51,7 @@ const Clock = ({ className, city }) => {
                 //console.log(postcode)
                 const data = await fetchData.json()
                 console.log(data)
-                const time = data.datetime.slice(11, 19)
+                const time = data.datetime.slice(11, 16)
                 //console.log("time", time)
                 setDisplay(time)
                 setStateName(data.timezone)
@@ -53,7 +59,7 @@ const Clock = ({ className, city }) => {
                 console.log("ERROR", error)
             }
               
-          }, 500);
+          //}, 500);
 
       
       })()
