@@ -16,13 +16,13 @@ function App() {
           <Panel />
           <div className="map__container">
             <img src={map} alt="map" className="map" />
-            <Clock className={"state WA"} city={"Perth"} />
-            <Clock className={"state SA"} city={"Adelaide"} />
-            <Clock className={"state NT"} city={"Darwin"} />
-            <Clock className={"state QLD"} city={"Brisbane"} />
-            <Clock className={"state NSW"} city={"Sydney"} />
-            <Clock className={"state VIC"} city={"Melbourne"} />
-            <Clock className={"state TAS"} city={"Hobart"} />
+            <Clock className={"WA"} city={"Perth"} />
+            <Clock className={"SA"} city={"Adelaide"} />
+            <Clock className={"NT"} city={"Darwin"} />
+            <Clock className={"QLD"} city={"Brisbane"} />
+            <Clock className={"NSW"} city={"Sydney"} />
+            <Clock className={"VIC"} city={"Melbourne"} />
+            <Clock className={"TAS"} city={"Hobart"} />
           </div>
           
       </div>

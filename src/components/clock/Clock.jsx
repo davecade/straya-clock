@@ -15,6 +15,18 @@ const stateKey = {
     'Hobart': 'TAS'
 }
 
+const nonMilitary = time => {
+    let hour = Number(time.slice(0,2))
+
+    if(hour > 12) {
+        return `${hour-12}${time.slice(2)} PM`
+    } else {
+
+        return `${time} AM`
+    }
+
+}
+
 const Clock = ({ className, city }) => {
 
     const [ display, setDisplay ] = useState(null)
@@ -48,9 +60,10 @@ const Clock = ({ className, city }) => {
     }, [city])
 
     return (
-        <div className={className}>
-            <h4>{stateKey[stateName.slice(10)]}</h4>
+        <div className={`state ${className}`}>
+            <h4 className="state-name">{stateKey[stateName.slice(10)]}</h4>
             <p>{display}</p>
+            <p>{display ? nonMilitary(display) : display}</p>
         </div>
     )
 }

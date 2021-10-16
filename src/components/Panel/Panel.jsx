@@ -5,7 +5,10 @@ const Panel = () => {
 
     return (
         <div className="panel">
-            <h1>Display Info here</h1>
+            <div className="search-container" >
+                <input type="text" className="search-bar" placeholder="Search..."/>
+            <i className="fas fa-search fa-search"></i>
+        </div>
         </div>
     )
 }

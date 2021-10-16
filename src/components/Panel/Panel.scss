@@ -2,5 +2,47 @@
     color: white;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    padding: 2rem 0;
+
+    .search-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 2.1rem;
+        margin: 0.5rem;
+        transition: all .5s;
+    
+        .search-bar {
+            height: 100%;
+            width: 100%;
+            border-radius: 1rem;
+            border: 2px solid #0d1117;
+            outline: none;
+            padding: 0 0.5rem;
+            background-color: #0d1117;
+            transition: all .5s;
+            color: #f0f6fc;;
+    
+            &::placeholder{
+                color: #f0f6fc;;
+            }
+    
+            &:focus {
+                border: 2px solid #00843D;
+                transition: all .5s;
+    
+            }
+        }
+    
+        i {
+            transform: translate(-160%);
+    
+            &:hover {
+                cursor: pointer;
+                color: #d9eb52;
+            }
+        }
+    }
+    
 }

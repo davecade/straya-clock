@@ -8,13 +8,19 @@
     width: fit-content;
     padding: .5rem;
     background-color: black;
-    color: #6dce66;
+    // color: #6dce66;
+    color: #00843D;
     border-radius: .3rem;
+    font-size: 1.3rem;
+
+    .state-name {
+        color: #FFCD00;
+    }
 }
 
 .WA {
-    left: 22%;
-    top: 41%;
+    left: 25%;
+    top: 45%;
 }
 
 .NT {
@@ -23,6 +29,7 @@
 
 .SA {
     bottom: 40%;
+    right: 44%
 }
 
 .QLD {
@@ -32,12 +39,12 @@
 
 .NSW {
     right: 20%;
-    bottom: 30%
+    bottom: 31%
 }
 
 .VIC {
     right: 29%;
-    bottom: 18%
+    bottom: 16.5%
 }
 
 .TAS {
