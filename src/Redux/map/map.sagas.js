@@ -10,13 +10,13 @@ import {
 export function* fetchMapDataAsync() {
     try {
 
-        const one = axios.get(`http://worldtimeapi.org/api/timezone/Australia/Sydney`)
-        const two = axios.get(`http://worldtimeapi.org/api/timezone/Australia/Brisbane`)
-        const three = axios.get(`http://worldtimeapi.org/api/timezone/Australia/Melbourne`)
-        const four = axios.get(`http://worldtimeapi.org/api/timezone/Australia/Adelaide`)
-        const five = axios.get(`http://worldtimeapi.org/api/timezone/Australia/Darwin`)
-        const six = axios.get(`http://worldtimeapi.org/api/timezone/Australia/Perth`)
-        const seven = axios.get(`http://worldtimeapi.org/api/timezone/Australia/Hobart`)
+        const one = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Sydney`)
+        const two = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Brisbane`)
+        const three = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Melbourne`)
+        const four = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Adelaide`)
+        const five = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Darwin`)
+        const six = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Perth`)
+        const seven = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Hobart`)
         
         const mapData = yield axios.all([one, two, three, four, five, six, seven])
 
@@ -39,9 +39,7 @@ export function* fetchMapDataAsync() {
 
 export function* fetchPostcodeDataAsync({payload}) {
     try {
-
-        console.log("payload", payload)
-        const postcodeData = yield axios.get(`http://api.jsacreative.com.au/v1/suburbs?postcode=${payload}`)
+        const postcodeData = yield axios.get(`https://api.jsacreative.com.au/v1/suburbs?postcode=${payload}`)
         yield put(updatePostcodeData(postcodeData.data))
         yield put(updateSelected(postcodeData.data[0].state.abbreviation))
 
