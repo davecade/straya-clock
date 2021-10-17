@@ -23,3 +23,8 @@ export const updatePostcodeData = postcodeData => ({
     type: MapActionTypes.UPDATE_POSTCODE_DATA,
     payload: postcodeData
 })
+
+export const setLoading = status => ({
+    type: MapActionTypes.SET_LOADING,
+    payload: status
+})

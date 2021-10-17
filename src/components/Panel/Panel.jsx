@@ -31,7 +31,7 @@ const stateKey = {
     TAS: "Tasmania"
 }
 
-const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, updateSelected }) => {
+const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading }) => {
     const [ panelTime, setPanelTime ] = useState(null)
     const [ searchFieldVal, setSearchfieldVal ] = useState(null)
 
@@ -68,7 +68,12 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, updateS
                 <i className="fas fa-search fa-search"></i>
             </div>
             <div className="clock">
-                <h1>{panelTime}</h1>
+                {
+                    loading ?
+                    <h1>Loading...</h1>
+                    :
+                    <h1>{panelTime}</h1>
+                }
             </div>
             <div className="postcode-info">
                 <div className="state-name">{stateKey[selected]}</div>
@@ -86,6 +91,7 @@ const mapStateToProps = state => ({
     currentTime: state.map.currentTime,
     selected: state.map.selected,
     postcodeData: state.map.postcodeData,
+    loading: state.map.loading
 })
 
 const mapDispatchToProps = dispatch => ({

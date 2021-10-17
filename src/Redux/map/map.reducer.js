@@ -4,6 +4,7 @@ const INITIAL_STATE = {
     currentTime: {},
     selected: "",
     postcodeData: [],
+    loading: false,
     error: null
 }
 
@@ -24,6 +25,12 @@ const mapReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 postcodeData: action.payload
+            }
+
+        case MapActionTypes.SET_LOADING:
+            return {
+                ...state,
+                loading: action.payload
             }
 
         default:

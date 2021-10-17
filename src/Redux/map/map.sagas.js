@@ -5,6 +5,7 @@ import {
     updateCurrentTime,
     updatePostcodeData,
     updateSelected,
+    setLoading
 } from "./map.actions";
 
 export function* fetchMapDataAsync() {
@@ -39,12 +40,15 @@ export function* fetchMapDataAsync() {
 
 export function* fetchPostcodeDataAsync({payload}) {
     try {
+        yield put(setLoading(true))
         const postcodeData = yield axios.get(`https://api.jsacreative.com.au/v1/suburbs?postcode=${payload}`)
         yield put(updatePostcodeData(postcodeData.data))
         yield put(updateSelected(postcodeData.data[0].state.abbreviation))
+        yield put(setLoading(false))
 
     } catch(error) {
         yield put(updateSelected(""))
+        yield put(setLoading(false))
         console.log("ERROR", error)
 
     }
