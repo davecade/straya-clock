@@ -8,6 +8,11 @@ const INITIAL_STATE = {
 
 const mapReducer = (state = INITIAL_STATE, action) => {
     switch(action.type) {
+        case MapActionTypes.UPDATE_CURRENT_TIME:
+            return {
+                ...state,
+                currentTime: action.payload
+            }
 
         default:
             return {

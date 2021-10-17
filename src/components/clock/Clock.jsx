@@ -1,19 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
+import { connect } from 'react-redux'
 import './Clock.scss'
 
 //-- API's
 //-- http://api.jsacreative.com.au/v1/suburbs?postcode=2155
 //-- http://worldtimeapi.org/
 
-const stateKey = {
-    'Sydney': 'NSW',
-    'Melbourne': 'VIC',
-    'Adelaide': 'SA',
-    'Darwin': 'NT',
-    'Brisbane': 'QLD',
-    'Perth': 'WA',
-    'Hobart': 'TAS'
-}
 
 const nonMilitary = time => {
     let hour = Number(time.slice(0,2))
@@ -26,52 +18,27 @@ const nonMilitary = time => {
         } else if(hour === 0) {
             return `12${time.slice(2)} AM`
         } else {
-            return `${time} AM`
+            return `${time} PM`
         }
         
     }
 
 }
 
-const Clock = ({ className, city }) => {
 
-    const [ display, setDisplay ] = useState(null)
-    const [ stateName, setStateName ] = useState('')
-
-
-
-    useEffect(() => {
-  
-      return (async () => {
-          //setInterval(async () => {
-            try {
-                const fetchData = await fetch(`http://worldtimeapi.org/api/timezone/Australia/${city}`)
-                // const fetchPostcode = await fetch('http://api.jsacreative.com.au/v1/suburbs?postcode=2155')
-                // const postcode = await fetchPostcode.json()
-                //console.log(postcode)
-                const data = await fetchData.json()
-                console.log(data)
-                const time = data.datetime.slice(11, 16)
-                //console.log("time", time)
-                setDisplay(time)
-                setStateName(data.timezone)
-            } catch(error) {
-                console.log("ERROR", error)
-            }
-              
-          //}, 500);
-
-      
-      })()
-    }, [city])
+const Clock = ({ className, currentTime }) => {
 
     return (
         <div className={`state ${className}`}>
-            <h4 className="state-name">{stateKey[stateName.slice(10)]}</h4>
-            <p>{display}</p>
-            <p>{display ? nonMilitary(display) : display}</p>
+            <h4 className="state-name">{className}</h4>
+            <p style={{fontSize: '1.5rem'}}>{currentTime[className]}</p>
+            <p style={{fontSize: '1.5rem'}}>{currentTime[className] ? nonMilitary(currentTime[className]) : currentTime[className]}</p>
         </div>
     )
 }
 
-export default Clock
+const mapStateToProps = state => ({
+    currentTime: state.map.currentTime
+})
+
+export default connect(mapStateToProps)(Clock)

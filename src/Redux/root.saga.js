@@ -1,5 +1,5 @@
 import { all, call } from 'redux-saga/effects'
-import { ticketSagas } from './map/map.sagas'
+import { mapSagas } from './map/map.sagas'
 //import { userSagas } from './users/user.sagas'
 
 function* rootSaga() {
