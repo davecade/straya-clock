@@ -11,15 +11,23 @@ import {
 export function* fetchMapDataAsync() {
     try {
 
-        const one = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Sydney`)
-        const two = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Brisbane`)
-        const three = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Melbourne`)
-        const four = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Adelaide`)
-        const five = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Darwin`)
-        const six = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Perth`)
-        const seven = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Hobart`)
+        const requestOne = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Sydney`)
+        const requestTwo = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Brisbane`)
+        const requestThree = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Melbourne`)
+        const requestFour = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Adelaide`)
+        const requestFive = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Darwin`)
+        const requestSix = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Perth`)
+        const requestSeven = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Hobart`)
         
-        const mapData = yield axios.all([one, two, three, four, five, six, seven])
+        const mapData = yield axios.all([
+            requestOne,
+            requestTwo,
+            requestThree,
+            requestFour,
+            requestFive,
+            requestSix,
+            requestSeven
+        ])
 
         const currentTime = {
             NSW: mapData[0].data.datetime.slice(11, 16),
@@ -34,7 +42,6 @@ export function* fetchMapDataAsync() {
 
     } catch(error) {
         console.log("ERROR", error)
-
     }
 }
 

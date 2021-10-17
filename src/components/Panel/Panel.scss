@@ -21,6 +21,10 @@
         h1 {
             font-size: 3.5rem;
         }
+
+        &:hover{
+            cursor: pointer;
+        }
     }
 
     .search-container {

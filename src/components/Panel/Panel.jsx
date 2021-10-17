@@ -32,7 +32,7 @@ const stateKey = {
 }
 
 const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading }) => {
-    const [ panelTime, setPanelTime ] = useState(null)
+    const [ panelTime, setPanelTime ] = useState({time: '', format: ''})
     const [ searchFieldVal, setSearchfieldVal ] = useState(null)
 
     const handleOnChange = event => {
@@ -46,7 +46,28 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
             } else {
                 fetchPostcodeData(searchFieldVal)
             }
-            
+        }
+    }
+
+    const handleClick = () => {
+        if(searchFieldVal[0]==='0') {
+            fetchPostcodeData(searchFieldVal.slice(1))
+        } else {
+            fetchPostcodeData(searchFieldVal)
+        }
+    }
+
+    const toggleTimeFormat = () => {
+        if(panelTime.format==='12') {
+            setPanelTime({
+                time: currentTime[selected],
+                format: "24"
+            })
+        } else {
+            setPanelTime({
+                time: nonMilitary(currentTime[selected]),
+                format: "12"
+            })
         }
     }
 
@@ -54,25 +75,39 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
     useEffect(() => {
 
         if(currentTime && selected) {
-            setPanelTime(nonMilitary(currentTime[selected]))
+            if(panelTime.format==='12') {
+                setPanelTime({
+                    time: nonMilitary(currentTime[selected]),
+                    format: "12"
+                })
+            } else {
+                setPanelTime({
+                    time: currentTime[selected],
+                    format: "24"
+                })
+            }
+
         } else {
-            setPanelTime("00:00")
+            setPanelTime({
+                time: "00:00",
+                format: "12"
+            })
         }
 
-    }, [currentTime, selected])
+    }, [currentTime, selected, panelTime.format])
 
     return (
         <div className="panel">
             <div className="search-container" >
                 <input type="text" className="search-bar" onChange={handleOnChange} onKeyPress={handleEnter} placeholder="Enter postcode..."/>
-                <i className="fas fa-search fa-search"></i>
+                <i className="fas fa-search fa-search" onClick={handleClick}></i>
             </div>
-            <div className="clock">
+            <div onClick={toggleTimeFormat} className="clock">
                 {
                     loading ?
                     <h1>Loading...</h1>
                     :
-                    <h1>{panelTime}</h1>
+                    <h1>{panelTime.time}</h1>
                 }
             </div>
             <div className="postcode-info">

@@ -3,5 +3,4 @@ import mapReducer from './map/map.reducer'
 
 export default combineReducers({
     map: mapReducer,
-    //panel: panelReducer,
 })

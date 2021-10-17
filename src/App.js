@@ -10,7 +10,7 @@ import { fetchMapDataStart } from './Redux/map/map.actions'
 //-- https://www.beliefmedia.com.au/australian-postal-codes
 //-- http://worldtimeapi.org/
 
-function App({ fetchMapDataStart, currentTime }) {
+function App({ fetchMapDataStart }) {
 
   useEffect(() => {
     //fetchMapDataStart()
@@ -24,13 +24,13 @@ function App({ fetchMapDataStart, currentTime }) {
           <Panel />
           <div className="map__container">
             <img src={map} alt="map" className="map" />
-            <Clock className={"WA"} city={"Perth"} />
-            <Clock className={"SA"} city={"Adelaide"} />
-            <Clock className={"NT"} city={"Darwin"} />
-            <Clock className={"QLD"} city={"Brisbane"} />
-            <Clock className={"NSW"} city={"Sydney"} />
-            <Clock className={"VIC"} city={"Melbourne"} />
-            <Clock className={"TAS"} city={"Hobart"} />
+            <Clock className={"WA"} />
+            <Clock className={"SA"} />
+            <Clock className={"NT"} />
+            <Clock className={"QLD"} />
+            <Clock className={"NSW"} />
+            <Clock className={"VIC"} />
+            <Clock className={"TAS"} />
           </div>
           
       </div>

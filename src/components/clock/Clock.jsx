@@ -3,10 +3,6 @@ import { connect } from 'react-redux'
 import './Clock.scss'
 import { updateSelected, updatePostcodeData } from '../../Redux/map/map.actions'
 
-//-- API's
-//-- http://api.jsacreative.com.au/v1/suburbs?postcode=2155
-//-- http://worldtimeapi.org/
-
 
 const nonMilitary = time => {
     let hour = Number(time.slice(0,2))
@@ -26,7 +22,7 @@ const nonMilitary = time => {
 }
 
 
-const Clock = ({ className, currentTime="00:00:00", updateSelected, updatePostcodeData }) => {
+const Clock = ({ className, currentTime, updateSelected, updatePostcodeData }) => {
 
     const handleClick = () => {
         updateSelected(className)
