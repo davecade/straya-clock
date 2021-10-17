@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import './Clock.scss'
+import { updateSelected, updatePostcodeData } from '../../Redux/map/map.actions'
 
 //-- API's
 //-- http://api.jsacreative.com.au/v1/suburbs?postcode=2155
@@ -22,14 +23,18 @@ const nonMilitary = time => {
         }
         
     }
-
 }
 
 
-const Clock = ({ className, currentTime }) => {
+const Clock = ({ className, currentTime="00:00:00", updateSelected, updatePostcodeData }) => {
+
+    const handleClick = () => {
+        updateSelected(className)
+        updatePostcodeData([])
+    }
 
     return (
-        <div className={`state ${className}`}>
+        <div className={`state ${className}`} onClick={handleClick}>
             <h4 className="state-name">{className}</h4>
             <p style={{fontSize: '1.5rem'}}>{currentTime[className]}</p>
             <p style={{fontSize: '1.5rem'}}>{currentTime[className] ? nonMilitary(currentTime[className]) : currentTime[className]}</p>
@@ -41,4 +46,9 @@ const mapStateToProps = state => ({
     currentTime: state.map.currentTime
 })
 
-export default connect(mapStateToProps)(Clock)
+const mapDispatchToProps = dispatch => ({
+    updateSelected: stateName => dispatch(updateSelected(stateName)),
+    updatePostcodeData: postcode => dispatch(updatePostcodeData(postcode))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Clock)

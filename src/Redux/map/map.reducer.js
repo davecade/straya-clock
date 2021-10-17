@@ -2,7 +2,8 @@ import { MapActionTypes } from './map.types'
 
 const INITIAL_STATE = {
     currentTime: {},
-    loading: false,
+    selected: "",
+    postcodeData: [],
     error: null
 }
 
@@ -12,6 +13,17 @@ const mapReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 currentTime: action.payload
+            }
+
+        case MapActionTypes.UPDATE_SELECTED:
+            return {
+                ...state,
+                selected: action.payload
+            }
+        case MapActionTypes.UPDATE_POSTCODE_DATA:
+            return {
+                ...state,
+                postcodeData: action.payload
             }
 
         default:

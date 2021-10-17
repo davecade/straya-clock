@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  user-select: none;
 }
 
 .App {
@@ -40,6 +39,7 @@
       width: 80%;
       height: 100%;
       max-width: 131rem;
+      user-select: none;
       //border-radius: 2rem;
       //border: 2px solid #d9eb52;
 

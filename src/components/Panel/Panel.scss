@@ -1,21 +1,39 @@
 .panel {
     color: white;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 2rem 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 3rem 0;
+    min-width: 350px;
+    height: 100vh;
+    overflow-X: scroll;
+
+
+    .clock {
+        color: lightgreen;
+        background-color: black;
+        text-align: center;
+        width: 100%;
+        padding: 1rem;
+        margin-bottom: 1rem;
+
+        h1 {
+            font-size: 3.5rem;
+        }
+    }
 
     .search-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 2.1rem;
-        margin: 0.5rem;
+        min-height: 2.1rem;
+        margin: 1rem;
         transition: all .5s;
+        margin-bottom: 2rem;
     
         .search-bar {
             height: 100%;
-            width: 100%;
             border-radius: 1rem;
             border: 2px solid #0d1117;
             outline: none;
@@ -29,9 +47,8 @@
             }
     
             &:focus {
-                border: 2px solid #00843D;
+                border: 2px solid #d9eb52;
                 transition: all .5s;
-    
             }
         }
     
@@ -42,6 +59,19 @@
                 cursor: pointer;
                 color: #d9eb52;
             }
+        }
+    }
+
+    .postcode-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+        .state-name {
+            font-weight: bold;
+            color: orange;
+            font-size: 1.5rem;
         }
     }
     

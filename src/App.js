@@ -10,12 +10,13 @@ import { fetchMapDataStart } from './Redux/map/map.actions'
 //-- https://www.beliefmedia.com.au/australian-postal-codes
 //-- http://worldtimeapi.org/
 
-function App({ fetchMapDataStart }) {
+function App({ fetchMapDataStart, currentTime }) {
 
   useEffect(() => {
+    //fetchMapDataStart()
     let startInterval = setInterval(() => fetchMapDataStart(), 1000);
     return () => clearInterval(startInterval)
-  }, [])
+  }, [fetchMapDataStart])
 
   return (
     <div className="App">

@@ -8,3 +8,18 @@ export const updateCurrentTime = (currentTime) => ({
     type: MapActionTypes.UPDATE_CURRENT_TIME,
     payload: currentTime
 })
+
+export const updateSelected = stateName => ({
+    type: MapActionTypes.UPDATE_SELECTED,
+    payload: stateName
+})
+
+export const fetchPostcodeData = postcode => ({
+    type: MapActionTypes.FETCH_POSTCODE_DATA,
+    payload: postcode
+})
+
+export const updatePostcodeData = postcodeData => ({
+    type: MapActionTypes.UPDATE_POSTCODE_DATA,
+    payload: postcodeData
+})
