@@ -64,7 +64,7 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
     return (
         <div className="panel">
             <div className="search-container" >
-                <input type="text" className="search-bar" onChange={handleOnChange} onKeyPress={handleEnter} placeholder="Search..."/>
+                <input type="text" className="search-bar" onChange={handleOnChange} onKeyPress={handleEnter} placeholder="Enter postcode..."/>
                 <i className="fas fa-search fa-search"></i>
             </div>
             <div className="clock">
