@@ -10,7 +10,7 @@ const nonMilitary = time => {
     if(hour > 12) {
         return `${hour-12}${time.slice(2)} PM`
     } else {
-        if(hour > 0 && hour < 13) {
+        if(hour > 0 && hour < 12) {
             return `${hour.toString()}${time.slice(2)} AM`
         } else if(hour === 0) {
             return `12${time.slice(2)} AM`
