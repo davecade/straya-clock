@@ -8,6 +8,8 @@ import {
     setLoading
 } from "./map.actions";
 
+let firstLoad = true
+
 export function* fetchMapDataAsync() {
     try {
 
@@ -40,8 +42,17 @@ export function* fetchMapDataAsync() {
         }
         yield put(updateCurrentTime(currentTime))
 
+        if(firstLoad) {
+            yield put(setLoading(false))
+            firstLoad = false
+        }
+
     } catch(error) {
         console.log("ERROR", error)
+        if(firstLoad) {
+            yield put(setLoading(false))
+            firstLoad = false
+        }
     }
 }
 

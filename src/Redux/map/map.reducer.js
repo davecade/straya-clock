@@ -1,10 +1,10 @@
 import { MapActionTypes } from './map.types'
 
 const INITIAL_STATE = {
-    currentTime: {},
+    currentTime: {default: 'default'},
     selected: null,
     postcodeData: [],
-    loading: false,
+    loading: true,
     error: null
 }
 
