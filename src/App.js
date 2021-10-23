@@ -13,16 +13,8 @@ import { fetchMapDataStart, updateSelected } from './Redux/map/map.actions'
 function App({ fetchMapDataStart, selected, updateSelected }) {
 
   useEffect(() => {
-    //fetchMapDataStart()
-    if(selected===null) {
-      updateSelected('NSW')
-    }
-
-    let startInterval = setInterval(() => {
-
-      fetchMapDataStart()
-
-    }, 1000);
+    if(selected===null) updateSelected('NSW')
+    let startInterval = setInterval(() => fetchMapDataStart(), 1000);
     return () => clearInterval(startInterval)
   }, [fetchMapDataStart, selected, updateSelected])
 
