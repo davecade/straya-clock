@@ -30,13 +30,13 @@ export function* fetchMapDataAsync() {
         ])
 
         const currentTime = {
-            NSW: mapData[0].data.datetime.slice(11, 16),
-            QLD: mapData[1].data.datetime.slice(11, 16),
-            VIC: mapData[2].data.datetime.slice(11, 16),
-            SA: mapData[3].data.datetime.slice(11, 16),
-            NT: mapData[4].data.datetime.slice(11, 16),
-            WA: mapData[5].data.datetime.slice(11, 16),
-            TAS: mapData[6].data.datetime.slice(11, 16),
+            NSW: mapData[0].data.datetime.slice(11, 19),
+            QLD: mapData[1].data.datetime.slice(11, 19),
+            VIC: mapData[2].data.datetime.slice(11, 19),
+            SA: mapData[3].data.datetime.slice(11, 19),
+            NT: mapData[4].data.datetime.slice(11, 19),
+            WA: mapData[5].data.datetime.slice(11, 19),
+            TAS: mapData[6].data.datetime.slice(11, 19),
         }
         yield put(updateCurrentTime(currentTime))
 

@@ -4,19 +4,27 @@ import map from './assets/map.png'
 import Panel from './components/Panel/Panel'
 import Clock from './components/clock/Clock'
 import { connect } from 'react-redux';
-import { fetchMapDataStart } from './Redux/map/map.actions'
+import { fetchMapDataStart, updateSelected } from './Redux/map/map.actions'
 
 //-- API's
 //-- https://www.beliefmedia.com.au/australian-postal-codes
 //-- http://worldtimeapi.org/
 
-function App({ fetchMapDataStart }) {
+function App({ fetchMapDataStart, selected, updateSelected }) {
 
   useEffect(() => {
     //fetchMapDataStart()
-    let startInterval = setInterval(() => fetchMapDataStart(), 1000);
+    if(selected===null) {
+      updateSelected('NSW')
+    }
+
+    let startInterval = setInterval(() => {
+
+      fetchMapDataStart()
+
+    }, 1000);
     return () => clearInterval(startInterval)
-  }, [fetchMapDataStart])
+  }, [fetchMapDataStart, selected, updateSelected])
 
   return (
     <div className="App">
@@ -39,8 +47,13 @@ function App({ fetchMapDataStart }) {
   );
 }
 
-const mapDispatchToProps = dispatch => ({
-  fetchMapDataStart: () => dispatch(fetchMapDataStart())
+const mapStateToProps = state => ({
+  selected: state.map.selected,
 })
 
-export default connect(null, mapDispatchToProps)(App);
+const mapDispatchToProps = dispatch => ({
+  fetchMapDataStart: () => dispatch(fetchMapDataStart()),
+  updateSelected: stateName => dispatch(updateSelected(stateName))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

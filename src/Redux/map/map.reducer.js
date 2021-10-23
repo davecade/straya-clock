@@ -2,7 +2,7 @@ import { MapActionTypes } from './map.types'
 
 const INITIAL_STATE = {
     currentTime: {},
-    selected: "",
+    selected: null,
     postcodeData: [],
     loading: false,
     error: null

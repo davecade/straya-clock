@@ -20,12 +20,17 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
     const [ searchFieldVal, setSearchfieldVal ] = useState(null)
 
     const handleOnChange = event => {
-        setSearchfieldVal(event.target.value)
+        if(event.target.value) {
+            setSearchfieldVal(event.target.value)
+        } else {
+            setSearchfieldVal(null)
+        }
+        
     }
 
     const handleEnter = event => {
         if (event.key === 'Enter') {
-            if(searchFieldVal[0]==='0') {
+            if(searchFieldVal && searchFieldVal[0]==='0') {
                 fetchPostcodeData(searchFieldVal.slice(1))
             } else {
                 fetchPostcodeData(searchFieldVal)
@@ -73,7 +78,7 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
 
         } else {
             setPanelTime({
-                time: "00:00",
+                time: "No Results",
                 format: "12"
             })
         }
