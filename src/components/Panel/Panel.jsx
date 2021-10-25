@@ -102,8 +102,8 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
             <div className="postcode-info">
                 <div className="state-name">{stateKey[selected]}</div>
                 {
-                    postcodeData.map( location => {
-                        return <div>{`${location.name}`}</div>
+                    postcodeData.map( (location, index) => {
+                        return <div key={index}>{`${location.name}`}</div>
                     })
                 }
             </div>
