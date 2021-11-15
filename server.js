@@ -45,9 +45,7 @@ app.get('/map', async (req, res) => {
 
 app.get('/postcode/:code', async (req, res) => {
     const fetchPostcodeData = await axios.get(`https://api.jsacreative.com.au/v1/suburbs?postcode=${req.params.code}`)
-    const postcodeData = fetchPostcodeData.data
-    res.send(postcodeData)
-
+    res.send(fetchPostcodeData.data)
 })
 
 
