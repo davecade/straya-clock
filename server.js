@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const axios = require('axios')
+const path = require('path')
 
 if(process.env.NODE_ENV !== 'production') require('dotenv').config()
 
@@ -61,7 +62,7 @@ app.get('/postcode/:code', async (req, res) => {
 
 
 //-- Runs server
-app.listen(port, () => {
+app.listen(port, error => {
     if(error) throw error;
-    console.log(`Server running on PORT ${port}`)
+    console.log(`Server runnning on port ${port}`)
 })
