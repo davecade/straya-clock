@@ -12,16 +12,6 @@ app.use(express.json())
 app.use(cors())
 app.use(express.urlencoded({extended:true}));
 
-
-if(process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'client/build')))
-
-    app.get("*", function(req, res) {
-        res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
-    })
-}
-
-
 app.get('/map', async (req, res) => {
     const requestOne = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Sydney`)
     const requestTwo = axios.get(`https://worldtimeapi.org/api/timezone/Australia/Brisbane`)
@@ -60,6 +50,15 @@ app.get('/postcode/:code', async (req, res) => {
 
 })
 
+
+
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'client/build')))
+
+    app.get("*", function(req, res) {
+        res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
+    })
+}
 
 //-- Runs server
 app.listen(port, error => {
