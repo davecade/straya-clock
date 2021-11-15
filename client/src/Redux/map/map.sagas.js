@@ -34,7 +34,9 @@ export function* fetchMapDataAsync() {
 export function* fetchPostcodeDataAsync({payload}) {
     try {
         yield put(setLoading(true))
-        const postcodeData = yield axios.get(`/postcode/${payload}`)
+        const fetchPostcodeData = yield axios.get(`/postcode/${payload}`)
+        const postcodeData = fetchPostcodeData.data
+        console.log("postcodeData", postcodeData)
         yield put(updatePostcodeData(postcodeData))
         yield put(updateSelected(postcodeData[0].state.abbreviation))
         yield put(setLoading(false))
