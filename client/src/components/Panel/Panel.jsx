@@ -15,13 +15,16 @@ const stateKey = {
     TAS: "Tasmania"
 }
 
+//-- new array
 const array =["NSW", "QLD", "VIC", "SA", "NT", "WA", "TAS"]
 
 const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading }) => {
     const [ panelTime, setPanelTime ] = useState({time: '', format: ''})
     const [ searchFieldVal, setSearchfieldVal ] = useState(null)
-    const [ currentState, setCurrentState ] = useState("")
-    const [ targetTime, setTargetTime ] = useState("")
+    const [ convertFromState, setConvertFromState ] = useState("")
+    const [ convertFromTime, setConvertFromTime ] = useState("")
+    const [ convertedState, setConvertedState ] = useState("")
+    const [ convertedTime, setConvertedTime ] = useState("")
 
     const handleOnChange = event => {
         if(event.target.value) {
@@ -41,6 +44,7 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
             }
         }
     }
+
 
     const handleClick = () => {
         if(searchFieldVal[0]==='0') {
@@ -89,12 +93,20 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
 
     }, [currentTime, selected, panelTime.format])
 
-    const handleStateChange = (e) => {
-        setCurrentState(e.target.value)
+    const handleConvertFromStateChange = (e) => {
+        setConvertFromState(e.target.value)
     }
 
-    const handleTimeChange = (e) => {
-        setTargetTime(currentTime["NSW"])
+    const handleConvertFromTimeChange = (e) => {
+        setConvertFromTime(currentTime["NSW"])
+    }
+
+    const handleConvertedStateChange = (e) => {
+        setConvertedState(e.target.value)
+    }
+
+    const handleConvertedTimeChange = (e) => {
+        setConvertedTime(currentTime["NSW"])
     }
 
     return (
@@ -124,7 +136,7 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
             <div className="timezone__converter__container_from">
                 <div className="typeSelector">
                     <div className="dropdown">
-                        <select className="dropbtn" value={currentState} onChange={handleStateChange} >
+                        <select className="dropbtn" value={convertFromState} onChange={handleConvertFromStateChange} >
                             {
                                 array.map((state, index) => {
                                     return <option key={index} value={state}>{state}</option>
@@ -133,12 +145,12 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
                         </select>
                     </div>
                 </div>
-                <input type="time" value={targetTime} onChange={handleTimeChange} />
+                <input type="time" value={convertFromTime} onChange={handleConvertFromTimeChange} />
             </div>
             <div className="timezone__converter__container_to">
                 <div className="typeSelector">
                     <div className="dropdown">
-                        <select className="dropbtn" value={currentState} onChange={handleStateChange} >
+                        <select className="dropbtn" value={convertedState} onChange={handleConvertedStateChange} >
                             {
                                 array.map((state, index) => {
                                     return <option key={index} value={state}>{state}</option>
@@ -147,8 +159,11 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
                         </select>
                     </div>
                 </div>
-                <input type="text" value={targetTime} onChange={handleTimeChange} />
+                <div className="converted__time__container">
+                    <p>{convertedTime}</p>
+                </div>
             </div>
+            <button className="submit__button" onClick={handleConvertedTimeChange}>SUBMIT</button>
         </div>
     )
 }

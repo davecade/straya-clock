@@ -31,6 +31,15 @@ app.get('/map', async (req, res) => {
         requestSeven
     ])
 
+
+    console.log("NSW", mapData[0].data.utc_offset)
+    console.log("QLD", mapData[1].data.utc_offset)
+    console.log("VIC", mapData[2].data.utc_offset)
+    console.log("SA", mapData[3].data.utc_offset)
+    console.log("NT", mapData[4].data.utc_offset)
+    console.log("WA", mapData[5].data.utc_offset)
+    console.log("TAS", mapData[6].data.utc_offset)
+
     const currentTime = {
         NSW: mapData[0].data.datetime.slice(11, 19),
         QLD: mapData[1].data.datetime.slice(11, 19),
