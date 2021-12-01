@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import './Panel.scss'
 import { fetchPostcodeData, updateSelected }  from '../../Redux/map/map.actions'
 import { nonMilitary } from '../../JS Utils/JS-Utilities'
+import axios from "axios";
 
 
 const stateKey = {
@@ -21,9 +22,9 @@ const array =["NSW", "QLD", "VIC", "SA", "NT", "WA", "TAS"]
 const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading }) => {
     const [ panelTime, setPanelTime ] = useState({time: '', format: ''})
     const [ searchFieldVal, setSearchfieldVal ] = useState(null)
-    const [ convertFromState, setConvertFromState ] = useState("")
+    const [ convertFromState, setConvertFromState ] = useState("NSW")
     const [ convertFromTime, setConvertFromTime ] = useState("")
-    const [ convertedState, setConvertedState ] = useState("")
+    const [ convertedState, setConvertedState ] = useState("NSW")
     const [ convertedTime, setConvertedTime ] = useState("")
 
     const handleOnChange = event => {
@@ -98,14 +99,20 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
     }
 
     const handleConvertFromTimeChange = (e) => {
-        setConvertFromTime(currentTime["NSW"])
+        setConvertFromTime(e.target.value)
     }
 
     const handleConvertedStateChange = (e) => {
         setConvertedState(e.target.value)
     }
 
-    const handleConvertedTimeChange = (e) => {
+    const handleConvertedTimeChange = async (e) => {
+        const response = await axios.get('/convert', {params: { convertFromState, convertedState }})
+        
+        const { hour, minute } = response.data
+
+        console.log("SELECTED0 TIME", convertFromTime)
+
         setConvertedTime(currentTime["NSW"])
     }
 
@@ -160,7 +167,7 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
                     </div>
                 </div>
                 <div className="converted__time__container">
-                    <p>{convertedTime}</p>
+                    <p>Converted Time: {convertedTime}</p>
                 </div>
             </div>
             <button className="submit__button" onClick={handleConvertedTimeChange}>SUBMIT</button>
