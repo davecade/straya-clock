@@ -25,7 +25,7 @@ const timezones = {
 //-- Adds zero if hour or minute is a single digit
 const formatZero = (num) => (num < 10 ? `0${num}` : num);
 
-const timeConverter = (fromTime, hourDiff, minDiff) => {
+const timeConverter = (fromTime, hourDiff, minDiff, state) => {
   let resultHour;
   let resultMin;
 
@@ -57,16 +57,36 @@ const timeConverter = (fromTime, hourDiff, minDiff) => {
   }
 
   //-- if the hour is 24 or more, then we minus 24
-  if(resultHour > 23) {
+  if (resultHour > 23) {
     resultHour = resultHour - 24;
   }
-  
+
   //-- if the hour is negative, then we add 24
-  if(resultHour < 0){
-    resultHour = resultHour + 24
+  if (resultHour < 0) {
+    resultHour = resultHour + 24;
   }
 
-  return `${formatZero(resultHour)}:${formatZero(resultMin)}`;
+  return {
+    state: state,
+    time: `${formatZero(resultHour)}:${formatZero(resultMin)}`,
+  };
+};
+
+const getListOfTimes = (convertFromState, convertFromTime) => {
+  const states = ["NSW", "QLD", "VIC", "SA", "NT", "WA", "TAS"];
+
+  const result = states.map((state) => {
+    const fromHour = Number(timezones[convertFromState].slice(1, 3));
+    const fromMinutes = Number(timezones[convertFromState].slice(4));
+    const toHour = Number(timezones[state].slice(1, 3));
+    const toMinutes = Number(timezones[state].slice(4));
+    const hourDiff = fromHour - toHour;
+    const minDiff = fromMinutes - toMinutes;
+
+    return timeConverter(convertFromTime, hourDiff, minDiff, state);
+  });
+
+  return result;
 };
 
 app.get("/map", async (req, res) => {
@@ -125,16 +145,9 @@ app.get("/map", async (req, res) => {
 });
 
 app.get("/convert", (req, res) => {
-  const { convertFromState, convertedState, convertFromTime } = req.query;
+  const { convertFromState, convertFromTime } = req.query;
 
-  const fromHour = Number(timezones[convertFromState].slice(1, 3));
-  const fromMinutes = Number(timezones[convertFromState].slice(4));
-  const toHour = Number(timezones[convertedState].slice(1, 3));
-  const toMinutes = Number(timezones[convertedState].slice(4));
-  const hourDiff = fromHour - toHour;
-  const minDiff = fromMinutes - toMinutes;
-
-  const result = timeConverter(convertFromTime, hourDiff, minDiff);
+  const result = getListOfTimes(convertFromState, convertFromTime);
 
   res.send(result);
 });

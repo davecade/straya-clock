@@ -24,8 +24,7 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
     const [ searchFieldVal, setSearchfieldVal ] = useState(null)
     const [ convertFromState, setConvertFromState ] = useState("NSW")
     const [ convertFromTime, setConvertFromTime ] = useState("")
-    const [ convertedState, setConvertedState ] = useState("NSW")
-    const [ convertedTime, setConvertedTime ] = useState("")
+    const [ convertedTime, setConvertedTime ] = useState([])
 
     const handleOnChange = event => {
         if(event.target.value) {
@@ -102,15 +101,10 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
         setConvertFromTime(e.target.value)
     }
 
-    const handleConvertedStateChange = (e) => {
-        setConvertedState(e.target.value)
-    }
-
     const handleConvertedTimeChange = async (e) => {
         const response = await axios.get('/convert', {
             params: { 
                 convertFromState,
-                convertedState,
                 convertFromTime
             }
         })
@@ -134,43 +128,37 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
             </div>
             <div className="postcode-info">
                 <div className="state-name">{stateKey[selected]}</div> 
-                    <div className="suburbs">
-                        {
-                            postcodeData.map( (location, index) => {
-                                return <div key={index}>{`${location.name}`}</div>
-                            })
-                        }
-                    </div>
-            </div>
-            <div className="timezone__converter__container_from">
-                <div className="typeSelector">
-                    <div className="dropdown">
-                        <select className="dropbtn" value={convertFromState} onChange={handleConvertFromStateChange} >
-                            {
-                                array.map((state, index) => {
-                                    return <option key={index} value={state}>{state}</option>
-                                })
-                            }
-                        </select>
-                    </div>
-                </div>
-                <input type="time" className="input__time" value={convertFromTime} onChange={handleConvertFromTimeChange} />
-            </div>
-            <div className="timezone__converter__container_to">
-                <div className="typeSelector">
-                    <div className="dropdown">
-                        <select className="dropbtn" value={convertedState} onChange={handleConvertedStateChange} >
-                            {
-                                array.map((state, index) => {
-                                    return <option key={index} value={state}>{state}</option>
-                                })
-                            }
-                        </select>
-                        <span className="converted__time">{convertedTime}</span>
-                    </div>
+                <div className="suburbs">
+                    {
+                        postcodeData.map( (location, index) => {
+                            return <div key={index}>{`${location.name}`}</div>
+                        })
+                    }
                 </div>
             </div>
-            <button className="submit__button" onClick={handleConvertedTimeChange}>SUBMIT</button>
+            <div className="timezone__converter">
+                <div className="timezone__converter__container_from">
+                    <div className="typeSelector">
+                        <div className="dropdown">
+                            <select className="dropbtn" value={convertFromState} onChange={handleConvertFromStateChange} >
+                                {
+                                    array.map((state, index) => {
+                                        return <option key={index} value={state}>{state}</option>
+                                    })
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <input type="time" className="input__time" value={convertFromTime} onChange={handleConvertFromTimeChange} />
+                </div>
+                <button className="submit__button" onClick={handleConvertedTimeChange}>SUBMIT</button>
+                {
+                    convertedTime.map( converted => {
+                        return <p className="converted__time"><span className="state-list">{converted.state}</span>{`: ${converted.time}`}</p>
+                    })
+                }
+            </div>
+            
         </div>
     )
 }
