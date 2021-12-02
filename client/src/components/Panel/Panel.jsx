@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import './Panel.scss'
 import { fetchPostcodeData, updateSelected }  from '../../Redux/map/map.actions'
 import { nonMilitary } from '../../JS Utils/JS-Utilities'
+import { locations } from '../../JS Utils/JS-Utilities'
 import axios from "axios";
 
 
@@ -13,11 +14,9 @@ const stateKey = {
     SA: "South Australia",
     NT: "Northern Territory",
     WA: "Western Australia",
-    TAS: "Tasmania"
+    TAS: "Tasmania",
+    NZ: "New Zealand"
 }
-
-//-- new array
-const array =["NSW", "QLD", "VIC", "SA", "NT", "WA", "TAS"]
 
 const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading }) => {
     const [ panelTime, setPanelTime ] = useState({time: '', format: ''})
@@ -142,8 +141,8 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
                         <div className="dropdown">
                             <select className="dropbtn" value={convertFromState} onChange={handleConvertFromStateChange} >
                                 {
-                                    array.map((state, index) => {
-                                        return <option key={index} value={state}>{state}</option>
+                                    locations.map((location, index) => {
+                                        return <option key={index} value={location}>{location}</option>
                                     })
                                 }
                             </select>

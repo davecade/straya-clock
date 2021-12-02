@@ -20,12 +20,15 @@ const timezones = {
   NT: null,
   WA: null,
   TAS: null,
+  NZ: null
 };
+
+const locations = ["NSW", "QLD", "VIC", "SA", "NT", "WA", "TAS", "NZ"];
 
 //-- Adds zero if hour or minute is a single digit
 const formatZero = (num) => (num < 10 ? `0${num}` : num);
 
-const timeConverter = (fromTime, hourDiff, minDiff, state) => {
+const timeConverter = (fromTime, hourDiff, minDiff, location) => {
   let resultHour;
   let resultMin;
 
@@ -67,23 +70,22 @@ const timeConverter = (fromTime, hourDiff, minDiff, state) => {
   }
 
   return {
-    state: state,
+    state: location,
     time: `${formatZero(resultHour)}:${formatZero(resultMin)}`,
   };
 };
 
 const getListOfTimes = (convertFromState, convertFromTime) => {
-  const states = ["NSW", "QLD", "VIC", "SA", "NT", "WA", "TAS"];
 
-  const result = states.map((state) => {
+  const result = locations.map((location) => {
     const fromHour = Number(timezones[convertFromState].slice(1, 3));
     const fromMinutes = Number(timezones[convertFromState].slice(4));
-    const toHour = Number(timezones[state].slice(1, 3));
-    const toMinutes = Number(timezones[state].slice(4));
+    const toHour = Number(timezones[location].slice(1, 3));
+    const toMinutes = Number(timezones[location].slice(4));
     const hourDiff = fromHour - toHour;
     const minDiff = fromMinutes - toMinutes;
 
-    return timeConverter(convertFromTime, hourDiff, minDiff, state);
+    return timeConverter(convertFromTime, hourDiff, minDiff, location);
   });
 
   return result;
@@ -111,6 +113,9 @@ app.get("/map", async (req, res) => {
   const requestSeven = axios.get(
     `https://worldtimeapi.org/api/timezone/Australia/Hobart`
   );
+  const requestEight = axios.get(
+    `https://worldtimeapi.org/api/timezone/Pacific/Auckland`
+  );
 
   const mapData = await axios.all([
     requestOne,
@@ -120,6 +125,7 @@ app.get("/map", async (req, res) => {
     requestFive,
     requestSix,
     requestSeven,
+    requestEight
   ]);
 
   if (!timezones.NSW) {
@@ -130,6 +136,7 @@ app.get("/map", async (req, res) => {
     timezones.NT = mapData[4].data.utc_offset;
     timezones.WA = mapData[5].data.utc_offset;
     timezones.TAS = mapData[6].data.utc_offset;
+    timezones.NZ = mapData[7].data.utc_offset
   }
 
   const currentTime = {

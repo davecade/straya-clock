@@ -17,3 +17,5 @@ export const nonMilitary = time => {
     }
 
 }
+
+export const locations = ["NSW", "QLD", "VIC", "SA", "NT", "WA", "TAS", "NZ"]
