@@ -107,9 +107,15 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
     }
 
     const handleConvertedTimeChange = async (e) => {
-        const response = await axios.get('/convert', {params: { convertFromState, convertedState }})
+        const response = await axios.get('/convert', {
+            params: { 
+                convertFromState,
+                convertedState,
+                convertFromTime
+            }
+        })
         
-        setConvertedTime(currentTime["NSW"])
+        setConvertedTime(response.data)
     }
 
     return (
@@ -148,7 +154,7 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
                         </select>
                     </div>
                 </div>
-                <input type="time" value={convertFromTime} onChange={handleConvertFromTimeChange} />
+                <input type="time" className="input__time" value={convertFromTime} onChange={handleConvertFromTimeChange} />
             </div>
             <div className="timezone__converter__container_to">
                 <div className="typeSelector">
@@ -160,10 +166,8 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
                                 })
                             }
                         </select>
+                        <span className="converted__time">{convertedTime}</span>
                     </div>
-                </div>
-                <div className="converted__time__container">
-                    <p>Converted Time: {convertedTime}</p>
                 </div>
             </div>
             <button className="submit__button" onClick={handleConvertedTimeChange}>SUBMIT</button>

@@ -22,6 +22,53 @@ const timezones = {
   TAS: null,
 };
 
+//-- Adds zero if hour or minute is a single digit
+const formatZero = (num) => (num < 10 ? `0${num}` : num);
+
+const timeConverter = (fromTime, hourDiff, minDiff) => {
+  let resultHour;
+  let resultMin;
+
+  const fromHour = Number(fromTime.slice(0, 2));
+  const fromMin = Number(fromTime.slice(3));
+
+  if (hourDiff < 0) {
+    resultHour = fromHour + Math.abs(hourDiff);
+  } else {
+    resultHour = fromHour - hourDiff;
+  }
+
+  if (minDiff < 0) {
+    resultMin = fromMin + Math.abs(minDiff);
+  } else {
+    resultMin = fromMin - minDiff;
+  }
+
+  //--If minute is 60 or more after adding
+  if (resultMin > 59) {
+    resultMin = resultMin - 60;
+    resultHour++;
+  }
+
+  //--If minute is negative after subtracting
+  if (resultMin < 0) {
+    resultMin = resultMin + 60;
+    resultHour--;
+  }
+
+  //-- if the hour is 24 or more, then we minus 24
+  if(resultHour > 23) {
+    resultHour = resultHour - 24;
+  }
+  
+  //-- if the hour is negative, then we add 24
+  if(resultHour < 0){
+    resultHour = resultHour + 24
+  }
+
+  return `${formatZero(resultHour)}:${formatZero(resultMin)}`;
+};
+
 app.get("/map", async (req, res) => {
   const requestOne = axios.get(
     `https://worldtimeapi.org/api/timezone/Australia/Sydney`
@@ -78,23 +125,18 @@ app.get("/map", async (req, res) => {
 });
 
 app.get("/convert", (req, res) => {
-  const { convertFromState, convertedState } = req.query;
+  const { convertFromState, convertedState, convertFromTime } = req.query;
 
   const fromHour = Number(timezones[convertFromState].slice(1, 3));
   const fromMinutes = Number(timezones[convertFromState].slice(4));
   const toHour = Number(timezones[convertedState].slice(1, 3));
   const toMinutes = Number(timezones[convertedState].slice(4));
-
   const hourDiff = fromHour - toHour;
   const minDiff = fromMinutes - toMinutes;
 
-  console.log("TIMEZONE:", timezones);
+  const result = timeConverter(convertFromTime, hourDiff, minDiff);
 
-  //-- if this is negative, you need to add. If positive, you need to minus
-  //-- this goes for both ours and minutes. They need to be checked separfately
-  console.log(`DIFFERENCE: ${hourDiff}:${minDiff}`);
-
-  res.send("DONE");
+  res.send(result);
 });
 
 app.get("/postcode/:code", async (req, res) => {
