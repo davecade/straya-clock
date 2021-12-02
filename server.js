@@ -20,7 +20,7 @@ const timezones = {
   NT: null,
   WA: null,
   TAS: null,
-  NZ: null
+  NZ: null,
 };
 
 const locations = ["NSW", "QLD", "VIC", "SA", "NT", "WA", "TAS", "NZ"];
@@ -76,7 +76,6 @@ const timeConverter = (fromTime, hourDiff, minDiff, location) => {
 };
 
 const getListOfTimes = (convertFromState, convertFromTime) => {
-
   const result = locations.map((location) => {
     const fromHour = Number(timezones[convertFromState].slice(1, 3));
     const fromMinutes = Number(timezones[convertFromState].slice(4));
@@ -125,7 +124,7 @@ app.get("/map", async (req, res) => {
     requestFive,
     requestSix,
     requestSeven,
-    requestEight
+    requestEight,
   ]);
 
   if (!timezones.NSW) {
@@ -136,7 +135,7 @@ app.get("/map", async (req, res) => {
     timezones.NT = mapData[4].data.utc_offset;
     timezones.WA = mapData[5].data.utc_offset;
     timezones.TAS = mapData[6].data.utc_offset;
-    timezones.NZ = mapData[7].data.utc_offset
+    timezones.NZ = mapData[7].data.utc_offset;
   }
 
   const currentTime = {
@@ -147,6 +146,7 @@ app.get("/map", async (req, res) => {
     NT: mapData[4].data.datetime.slice(11, 19),
     WA: mapData[5].data.datetime.slice(11, 19),
     TAS: mapData[6].data.datetime.slice(11, 19),
+    NZ: mapData[7].data.datetime.slice(11, 19),
   };
   res.send(currentTime);
 });

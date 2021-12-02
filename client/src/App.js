@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import './App.scss';
-import map from './assets/map.png'
+import AusMap from './assets/ausmap.png'
+import NZMap from './assets/nzmap.svg'
 import Panel from './components/Panel/Panel'
 import Clock from './components/clock/Clock'
 import { connect } from 'react-redux';
@@ -23,7 +24,7 @@ function App({ fetchMapDataStart, selected, updateSelected }) {
       <div className="app__content">
           <Panel />
           <div className="map__container">
-            <img src={map} alt="map" className="map" />
+            <img src={AusMap} alt="map" className="aus__map" />
             <Clock className={"WA"} />
             <Clock className={"SA"} />
             <Clock className={"NT"} />
@@ -31,6 +32,7 @@ function App({ fetchMapDataStart, selected, updateSelected }) {
             <Clock className={"NSW"} />
             <Clock className={"VIC"} />
             <Clock className={"TAS"} />
+            <Clock className={"NZ"} />
           </div>
           
       </div>
