@@ -109,10 +109,6 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
     const handleConvertedTimeChange = async (e) => {
         const response = await axios.get('/convert', {params: { convertFromState, convertedState }})
         
-        const { hour, minute } = response.data
-
-        console.log("SELECTED0 TIME", convertFromTime)
-
         setConvertedTime(currentTime["NSW"])
     }
 

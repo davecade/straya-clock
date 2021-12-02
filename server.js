@@ -85,10 +85,16 @@ app.get("/convert", (req, res) => {
   const toHour = Number(timezones[convertedState].slice(1, 3));
   const toMinutes = Number(timezones[convertedState].slice(4));
 
-  res.send({
-    hour: Math.abs(fromHour - toHour),
-    minute: Math.abs(fromMinutes - toMinutes),
-  });
+  const hourDiff = fromHour - toHour;
+  const minDiff = fromMinutes - toMinutes;
+
+  console.log("TIMEZONE:", timezones);
+
+  //-- if this is negative, you need to add. If positive, you need to minus
+  //-- this goes for both ours and minutes. They need to be checked separfately
+  console.log(`DIFFERENCE: ${hourDiff}:${minDiff}`);
+
+  res.send("DONE");
 });
 
 app.get("/postcode/:code", async (req, res) => {
