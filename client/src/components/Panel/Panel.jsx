@@ -154,7 +154,7 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
                 <button className="submit__button" onClick={handleConvertedTimeChange}>SUBMIT</button>
                 {
                     convertedTime.map( converted => {
-                        return <p className="converted__time"><span className="state-list">{converted.state}</span>{`: ${converted.time}`}</p>
+                        return <p className="converted__time"><span className="state-list">{converted.state}</span>{`: ${nonMilitary(converted.time)}`}<span style={{color: 'orange'}}>{" | "}</span>{`${converted.time}`}</p>
                     })
                 }
             </div>
