@@ -54,7 +54,10 @@ export function* getConvertedTimesAsync({ payload }) {
         });
 
         yield put(updateConvertedTimes(response.data));
-    } catch (error) {}
+        yield put(setLoading(false));
+    } catch (error) {
+        yield put(setLoading(false));
+    }
 }
 
 export function* onFetchMapDataStart() {
