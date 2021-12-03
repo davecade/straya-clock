@@ -1,43 +1,49 @@
-import { MapActionTypes } from './map.types'
+import { MapActionTypes } from "./map.types";
 
 const INITIAL_STATE = {
-    currentTime: {default: 'default'},
+    currentTime: { default: "default" },
     selected: null,
     postcodeData: [],
+    convertedTimes: [],
     loading: true,
-    error: null
-}
+    error: null,
+};
 
 const mapReducer = (state = INITIAL_STATE, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case MapActionTypes.UPDATE_CURRENT_TIME:
             return {
                 ...state,
-                currentTime: action.payload
-            }
+                currentTime: action.payload,
+            };
 
         case MapActionTypes.UPDATE_SELECTED:
             return {
                 ...state,
-                selected: action.payload
-            }
+                selected: action.payload,
+            };
         case MapActionTypes.UPDATE_POSTCODE_DATA:
             return {
                 ...state,
-                postcodeData: action.payload
-            }
+                postcodeData: action.payload,
+            };
+        case MapActionTypes.UPDATE_CONVERTED_TIMES:
+            return {
+                ...state,
+                convertedTimes: action.payload,
+            };
 
         case MapActionTypes.SET_LOADING:
             return {
                 ...state,
-                loading: action.payload
-            }
+                loading: action.payload,
+            };
 
         default:
             return {
-                ...state
-            }
+                ...state,
+            };
     }
-}
+};
 
 export default mapReducer;

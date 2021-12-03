@@ -1,60 +1,59 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .App {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #282c34;
-  //background-color: #21222b;
-  min-height: 100vh;
-
-  .app__content {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: 100%;
-    max-width: 160rem;
+    background-color: #282c34;
+    //background-color: #21222b;
+    min-height: 100vh;
 
-    .panel {
-      background-color: #1a1d22;
-      //background-color: #272a34;
-      height: 100%;
-      width: 20%;
-      //border-radius: 2rem;
-      //border: 2px solid #d9eb52;
+    .app__content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100vh;
+        width: 100%;
+        max-width: 160rem;
+
+        .panel {
+            background-color: #1a1d22;
+            //background-color: #272a34;
+            height: 100%;
+            width: 20%;
+            //border-radius: 2rem;
+            //border: 2px solid #d9eb52;
+        }
+
+        .map__container {
+            //@at-root: #1a1d22;
+            background-color: #272a34;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 80%;
+            height: 100%;
+            max-width: 131rem;
+            user-select: none;
+            //border-radius: 2rem;
+            //border: 2px solid #d9eb52;
+
+            .aus__map {
+                width: 80%;
+                height: 100%;
+            }
+
+            .nz__map {
+                width: 10%;
+                height: 10%;
+            }
+        }
     }
-
-    .map__container {
-      //@at-root: #1a1d22;
-      background-color: #272a34;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 80%;
-      height: 100%;
-      max-width: 131rem;
-      user-select: none;
-      //border-radius: 2rem;
-      //border: 2px solid #d9eb52;
-
-      .aus__map {
-        width: 80%;
-        height: 100%;
-        
-      }
-
-      .nz__map {
-        width: 10%;
-        height: 10%;
-      }
-    }
-  }
 }
 
 // .App-logo {

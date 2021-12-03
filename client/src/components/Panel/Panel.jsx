@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import './Panel.scss'
-import { fetchPostcodeData, updateSelected }  from '../../Redux/map/map.actions'
+import { fetchPostcodeData, updateSelected, getConvertedTimes }  from '../../Redux/map/map.actions'
 import { nonMilitary } from '../../JS Utils/JS-Utilities'
 import { locations } from '../../JS Utils/JS-Utilities'
-import axios from "axios";
 
 
 const stateKey = {
@@ -18,12 +17,11 @@ const stateKey = {
     NZ: "New Zealand"
 }
 
-const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading }) => {
+const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, getConvertedTimes, convertedTimes, loading }) => {
     const [ panelTime, setPanelTime ] = useState({time: '', format: ''})
     const [ searchFieldVal, setSearchfieldVal ] = useState(null)
     const [ convertFromState, setConvertFromState ] = useState("NSW")
     const [ convertFromTime, setConvertFromTime ] = useState("")
-    const [ convertedTime, setConvertedTime ] = useState([])
 
     const handleOnChange = event => {
         if(event.target.value) {
@@ -101,14 +99,7 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
     }
 
     const handleConvertedTimeChange = async (e) => {
-        const response = await axios.get('/convert', {
-            params: { 
-                convertFromState,
-                convertFromTime
-            }
-        })
-        
-        setConvertedTime(response.data)
+        getConvertedTimes({ location: convertFromState, time: convertFromTime})
     }
 
     return (
@@ -152,8 +143,8 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, loading
                 </div>
                 <button className="submit__button" onClick={handleConvertedTimeChange}>SUBMIT</button>
                 {
-                    convertedTime.map( converted => {
-                        return <p className="converted__time"><span className="state-list">{converted.state}</span>{`: ${nonMilitary(converted.time)}`}<span style={{color: 'orange'}}>{" | "}</span>{`${converted.time}`}</p>
+                    convertedTimes.map( converted => {
+                        return <p key={converted.state} className="converted__time"><span className="state-list">{converted.state}</span>{`: ${nonMilitary(converted.time)}`}<span style={{color: 'orange'}}>{" | "}</span>{`${converted.time}`}</p>
                     })
                 }
             </div>
@@ -166,12 +157,14 @@ const mapStateToProps = state => ({
     currentTime: state.map.currentTime,
     selected: state.map.selected,
     postcodeData: state.map.postcodeData,
+    convertedTimes: state.map.convertedTimes,
     loading: state.map.loading
 })
 
 const mapDispatchToProps = dispatch => ({
     fetchPostcodeData: postcode => dispatch(fetchPostcodeData(postcode)),
-    updateSelected: stateName => dispatch(updateSelected(stateName))
+    updateSelected: stateName => dispatch(updateSelected(stateName)),
+    getConvertedTimes: data => dispatch(getConvertedTimes(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Panel)
