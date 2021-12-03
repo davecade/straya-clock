@@ -75,10 +75,10 @@ const timeConverter = (fromTime, hourDiff, minDiff, location) => {
     };
 };
 
-const getListOfTimes = (convertFromState, convertFromTime) => {
+const getListOfTimes = (convertFromLocation, convertFromTime) => {
     const result = locations.map((location) => {
-        const fromHour = Number(timezones[convertFromState].slice(1, 3));
-        const fromMinutes = Number(timezones[convertFromState].slice(4));
+        const fromHour = Number(timezones[convertFromLocation].slice(1, 3));
+        const fromMinutes = Number(timezones[convertFromLocation].slice(4));
         const toHour = Number(timezones[location].slice(1, 3));
         const toMinutes = Number(timezones[location].slice(4));
         const hourDiff = fromHour - toHour;
