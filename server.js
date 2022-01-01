@@ -90,7 +90,8 @@ const getListOfTimes = (convertFromLocation, convertFromTime) => {
     return result;
 };
 
-app.get("/map", async (req, res) => {
+//-- Route Handlers --//
+const getMapData = async (req, res) => {
     const requestOne = axios.get(
         `https://worldtimeapi.org/api/timezone/Australia/Sydney`
     );
@@ -149,23 +150,29 @@ app.get("/map", async (req, res) => {
         NZ: mapData[7].data.datetime.slice(11, 19),
     };
     res.send(currentTime);
-});
+};
 
-app.get("/convert", (req, res) => {
+const getConvertedData = (req, res) => {
     const { location, time } = req.query;
 
     const result = getListOfTimes(location, time);
 
     res.send(result);
-});
+};
 
-app.get("/postcode/:code", async (req, res) => {
+const getPostcodeData = async (req, res) => {
     const fetchPostcodeData = await axios.get(
         `https://api.jsacreative.com.au/v1/suburbs?postcode=${req.params.code}`
     );
     res.send(fetchPostcodeData.data);
-});
+};
 
+//-- Routes --/
+app.get("/map", getMapData);
+app.get("/convert", getConvertedData);
+app.get("/postcode/:code", getPostcodeData);
+
+//-- Production --/
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "client/build")));
 

@@ -29,7 +29,6 @@ const Panel = ({ currentTime, selected, fetchPostcodeData, postcodeData, getConv
         } else {
             setSearchfieldVal(null)
         }
-        
     }
 
     const handleEnter = event => {
